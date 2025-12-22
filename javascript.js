@@ -90,10 +90,10 @@ if(formData.salary === ""){
   return false;
 }
 
-if(formData.salary <=0){
-  alert("Salary must be greater than zero");
-  return false;
-}
+  if(isNaN(formData.salary) || formData.salary <= 0){
+    alert("Salary must be a valid number and greater than zero");
+    return false;
+  }
 
 if(formData.city === ""){
   alert("Name Cannot be Empty");
