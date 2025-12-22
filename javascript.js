@@ -1,6 +1,11 @@
 var selectedRow=null;
 function onFormsubmit(){
   var formData=readFormData();
+
+  if(!formValidate(formData)){
+  return;
+}
+
   if (selectedRow === null){
     insertNewRecord(formData);
   
@@ -10,13 +15,7 @@ function onFormsubmit(){
   }
   resetForm();
   }
-
-// function onFormsubmit(){
-//     var formData=readFormData();
-//     insertNewRecord(formData);
-//     resetForm();
-   
-// }
+  
 
 
 function readFormData(){
@@ -72,4 +71,33 @@ function updateRecord(formData){
       selectedRow.cells[2].innerHTML=formData.salary;
         selectedRow.cells[3].innerHTML=formData.city;
 
+}
+
+//validating form
+
+function formValidate(formData){
+  if(formData.fullName === ""){
+    alert('Please enter Full Name');
+    return false;
+  }
+
+if(formData.empCode === ""){
+  alert("Employee code Cannot be Empty");
+  return false;
+}
+if(formData.salary === ""){
+  alert("Salary Cannot be Empty");
+  return false;
+}
+
+if(formData.salary <=0){
+  alert("Salary must be greater than zero");
+  return false;
+}
+
+if(formData.city === ""){
+  alert("Name Cannot be Empty");
+  return false;
+}
+return true;
 }
