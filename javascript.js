@@ -101,3 +101,44 @@ if(formData.city === ""){
 }
 return true;
 }
+
+
+// NEW: SEARCH AND FILTER FUNCTION
+function searchTable() {
+
+var input=document.getElementById("searchBox");
+var filter=input.value.toLowerCase();
+
+var table=document.getElementById("employeeList");
+var tr=table.getElementsByTagName("tr");
+ for (var i = 1; i < tr.length; i++) {
+var tdName= tr[i].getElementsByTagName("td")[0];
+var tdCode= tr[i].getElementsByTagName("td")[1];
+var tdSalary= tr[i].getElementsByTagName("td")[2];
+var tdCity= tr[i].getElementsByTagName("td")[3];
+
+
+if (tdName || tdCode || tdSalary || tdCity) {
+  var nameValue = tdName.textContent || tdName.innerText;
+  var codeValue = tdCode.textContent || tdCode.innerText;
+  var salaryValue = tdSalary.textContent || tdSalary.innerText;
+  var cityValue = tdCity.textContent || tdCity.innerText;
+
+  nameValue = nameValue.toLowerCase();
+  codeValue = codeValue.toLowerCase();
+  salaryValue = salaryValue.toLowerCase();
+  cityValue = cityValue.toLowerCase();
+
+  if(nameValue.includes(filter) || 
+  codeValue.includes(filter) ||
+   salaryValue.includes(filter) || 
+   cityValue.includes(filter)) 
+{
+    tr[i].style.display = "";
+}
+else{
+    tr[i].style.display = "none";
+}
+}
+}
+}
