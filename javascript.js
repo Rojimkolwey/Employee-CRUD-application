@@ -1,4 +1,56 @@
 var selectedRow=null;
+
+
+//Storig data in LOCALSTORAGE 
+
+function saveToLocalStoage(){
+  var table = document.getElementById("employeeList").getElementsByTagName("tbody")[0];
+var employees=[];
+
+for (var i=0; i<table.rows.length;i++){
+  var row=table.rows[i];
+
+
+  var employee ={
+    fullName:row.cells[0].innerHTML,
+      empCode:row.cells[1].innerHTML,
+        salary:row.cells[2].innerHTML,
+          city:row.cells[3].innerHTML,
+  };
+  employees.push(employee);
+}
+
+
+localStorage.setItem("employees", JSON.stringify(employees));
+
+console.log('Data Saved to localStorage:', employees);
+
+}
+
+
+function loadFromLocalStorage(){
+
+  var savedData = localStorage.getItem("employees");
+
+  if(savedData){
+
+    var employees=JSON.parse(savedData)
+
+    console.log ("Loading Data from localStorage:", employees);
+
+employees.forEach(function(employee){
+
+  insertNewRecord(employee);
+});
+
+  }
+  else{
+    console.log("No saved Data Found")
+  }
+}
+
+
+
 function onFormsubmit(){
   var formData=readFormData();
 
@@ -13,6 +65,9 @@ function onFormsubmit(){
   else{
     updateRecord(formData);
   }
+
+saveToLocalStoage();
+
   resetForm();
   }
   
@@ -142,3 +197,11 @@ else{
 }
 }
 }
+
+
+
+
+window.onload = function() {
+  loadFromLocalStorage();
+  console.log("🚀 Page loaded, checking for saved data...");
+};
